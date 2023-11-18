@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1063601549607",
+    "firebase_url": "https://direct-kisan-786-default-rtdb.firebaseio.com",
+    "project_id": "direct-kisan-786",
+    "storage_bucket": "direct-kisan-786.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1063601549607:android:4ae2161b568d1206b77902",
+        "android_client_info": {
+          "package_name": "com.palmsolutions.farmconnect"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1063601549607-pj3ipiobt18o7qcmlpa4uv0i9lbod9o5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB2hvPPd8WqDmTNjhsparpSnHnhuO_ayMc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1063601549607-pj3ipiobt18o7qcmlpa4uv0i9lbod9o5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

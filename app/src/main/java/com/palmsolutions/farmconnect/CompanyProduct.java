@@ -5,6 +5,7 @@ public class CompanyProduct {
     String Title;
     String Description;
     String Price;
+    String Product_id;
 
     public CompanyProduct(String image, String title, String description, String price) {
         Image = image;
@@ -13,6 +14,16 @@ public class CompanyProduct {
         Price = price;
     }
 
+    public CompanyProduct(String image, String title, String description, String price, String product_id) {
+        Image = image;
+        Title = title;
+        Description = description;
+        Price = price;
+        Product_id = product_id;
+    }
+
+
+
     public CompanyProduct(){
 
     }
@@ -20,6 +31,14 @@ public class CompanyProduct {
         Title = title;
         Description = description;
         Price = price;
+    }
+
+    public String getProduct_id() {
+        return Product_id;
+    }
+
+    public void setProduct_id(String product_id) {
+        Product_id = product_id;
     }
 
     public String getImage() {

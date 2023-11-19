@@ -1,6 +1,7 @@
 package com.palmsolutions.farmconnect;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,9 +50,12 @@ public class company_products_recycler_view extends RecyclerView.Adapter<company
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        if(products.get(position).getImage().equals("")){
+            holder.product_image_company.setImageResource(R.drawable.crops);
+        }
         holder.product_title_company.setText(products.get(position).getTitle());
         holder.product_description_company.setText(products.get(position).getDescription());
-        holder.product_price_company.setText(products.get(position).getPrice());
+        holder.product_price_company.setText("$" + products.get(position).getPrice() + ".0");
         holder.product_edit_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -82,7 +86,8 @@ public class company_products_recycler_view extends RecyclerView.Adapter<company
                             Map<String, Map<String, Object>> products_data = snapshot1.getValue(new GenericTypeIndicator<Map<String, Map<String, Object>>>(){});
                             for(Map.Entry<String, Map<String, Object>> entry : products_data.entrySet()){
                                 CompanyProduct newProduct = new CompanyProduct();
-
+                                newProduct.setProduct_id((String) entry.getValue().get("product_id"));
+                                newProduct.setImage((String) entry.getValue().get("image"));
                                 newProduct.setTitle((String) entry.getValue().get("title"));
                                 newProduct.setDescription((String) entry.getValue().get("description"));
                                 newProduct.setPrice(String.valueOf(entry.getValue().get("price")));

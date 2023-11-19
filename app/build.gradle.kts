@@ -42,4 +42,5 @@ dependencies {
     implementation("com.google.firebase:firebase-auth")
     implementation("com.google.firebase:firebase-database")
     implementation("com.google.firebase:firebase-storage")
+    implementation("com.facebook.shimmer:shimmer:0.1.0@aar")
 }

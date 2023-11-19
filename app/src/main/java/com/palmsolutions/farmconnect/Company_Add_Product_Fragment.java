@@ -76,10 +76,11 @@ public class Company_Add_Product_Fragment extends Fragment {
                     }
                     else{
                         String image_url = upload_image_to_firebase_storage(selected_image);
-                        CompanyProduct newProduct = new CompanyProduct(image_url, title, description, price);
-                        database.child("Products").child(user.getUid()).push().setValue(newProduct);
+                        Toast.makeText(getContext(), "Image "+image_url, Toast.LENGTH_SHORT).show();
+                        String product_id = database.child("Products").child(user.getUid()).push().getKey();
+                        CompanyProduct newProduct = new CompanyProduct(image_url, title, description, price, product_id);
+                        database.child("Products").child(user.getUid()).child(product_id).setValue(newProduct);
                         Toast.makeText(getContext(), "Product Added Successfully", Toast.LENGTH_SHORT).show();
-
                     }
 
                 }
@@ -135,6 +136,7 @@ public class Company_Add_Product_Fragment extends Fragment {
                         @Override
                         public void onSuccess(Uri uri) {
                             image_url[0] = uri.toString();
+                            Log.e("URL" , image_url[0]);
                         }
                     });
                 }
@@ -151,4 +153,6 @@ public class Company_Add_Product_Fragment extends Fragment {
         }
         return image_url[0];
     }
+
+
 }

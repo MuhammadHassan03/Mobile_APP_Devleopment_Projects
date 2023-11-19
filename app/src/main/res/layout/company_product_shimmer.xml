@@ -9,7 +9,6 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/navbar_background"
         app:cardCornerRadius="8sp"
         app:cardElevation="3sp"
         app:cardPreventCornerOverlap="true"
@@ -37,6 +36,7 @@
                     android:id="@+id/product_image_company"
                     android:layout_width="50sp"
                     android:layout_height="50sp"
+                    android:background="#DDDDDD"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -54,31 +54,25 @@
 
                 <TextView
                     android:id="@+id/product_title_company"
-                    android:layout_width="wrap_content"
+                    android:layout_width="140sp"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/sfbold"
-                    android:text="Title Goes Here"
-                    android:textSize="14sp"
+                    android:background="#DDDDDD"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/product_description_company"
-                    android:layout_width="wrap_content"
+                    android:layout_width="140sp"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/sfregular"
-                    android:text="Description Goes Here"
-                    android:textSize="14sp"
+                    android:background="#DDDDDD"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/product_title_company" />
 
                 <TextView
                     android:id="@+id/product_price_company"
-                    android:layout_width="wrap_content"
+                    android:layout_width="140sp"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/sfbold"
-                    android:text="Price Goes Here"
-                    android:textSize="14sp"
+                    android:background="#DDDDDD"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/product_description_company" />
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -92,12 +86,9 @@
 
                 <Button
                     android:id="@+id/product_edit_button"
-                    style="@style/buttonBackground"
+                    android:background="#DDDDDD"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/navbar_background"
-                    android:fontFamily="@font/sfregular"
-                    android:text="Edit"
                     android:textColor="#FFFFFF" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>

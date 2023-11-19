@@ -6,4 +6,5 @@
     <color name="PrimaryColorDark">#050505</color>
     <color name="SecondaryColor">#E6F1FC</color>
     <color name="inputBackgroundColor">#F8F8FA</color>
+    <color name="navbar_background_color">#152354</color>
 </resources>

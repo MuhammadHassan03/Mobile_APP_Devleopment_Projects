@@ -7,6 +7,8 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -35,7 +37,9 @@ public class Home extends AppCompatActivity {
             database = FirebaseDatabase.getInstance().getReference();
 
         if(user!=null){
+
             fetchUserDataFromDataBase();
+
         }
         else{
             Toast.makeText(this, "User is not Logged in Please Log in again", Toast.LENGTH_SHORT).show();
@@ -48,6 +52,8 @@ public class Home extends AppCompatActivity {
     }
 
     private void fetchUserDataFromDataBase(){
+        ProgressBar progress_bar_home = findViewById(R.id.progress_bar_home);
+        progress_bar_home.setVisibility(View.VISIBLE);
         ValueEventListener valueEventListener = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -70,7 +76,9 @@ public class Home extends AppCompatActivity {
     }
 
     private void load_fragment_according_to_account_type(){
+        ProgressBar progress_bar_home = findViewById(R.id.progress_bar_home);
         if("Company".equals(account_type)){
+            progress_bar_home.setVisibility(View.VISIBLE);
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction transaction = fragmentManager.beginTransaction();
             Company_Fragment companyFragment = new Company_Fragment(this);

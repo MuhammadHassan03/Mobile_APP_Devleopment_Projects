@@ -6,24 +6,36 @@ public class User {
     public String email;
     public String password;
     public String accountType;
+    public String name;
+    public String city;
 
+    public User(String uuid, String username, String email, String password, String accountType, String name, String city) {
+        this.uuid = uuid;
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.accountType = accountType;
+        this.name = name;
+        this.city = city;
+    }
 
     public User(String uuid, String username, String email, String password, String accountType) {
         this.uuid = uuid;
         this.username = username;
         this.email = email;
         this.password = password;
+        this.name = "";
         this.accountType = accountType;
     }
-    public User(){
 
+    public User() {
     }
 
-    public String getUUID() {
+    public String getUuid() {
         return uuid;
     }
 
-    public void setUUID(String uuid) {
+    public void setUuid(String uuid) {
         this.uuid = uuid;
     }
 
@@ -58,5 +70,20 @@ public class User {
     public void setAccountType(String accountType) {
         this.accountType = accountType;
     }
-}
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+}

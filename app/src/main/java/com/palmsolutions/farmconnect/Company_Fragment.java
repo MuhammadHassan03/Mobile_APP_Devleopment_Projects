@@ -31,15 +31,25 @@ public class Company_Fragment extends Fragment {
 
         company_products_recycler_view.setLayoutManager(new LinearLayoutManager(context));
         company_products_recycler_view.setAdapter(new company_products_recycler_view(context, manager));
-        Toast.makeText(context, "Recycler Vie Loaded", Toast.LENGTH_SHORT).show();
 
         add_product_constraint_layout_company.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 FragmentTransaction transaction = manager.beginTransaction();
                 Company_Add_Product_Fragment companyAddProductFragment = new Company_Add_Product_Fragment(context);
                 transaction.replace(R.id.Fragment_Home, companyAddProductFragment);
+                transaction.addToBackStack(null);
+                transaction.commit();
+            }
+        });
+
+        ImageView company_user_icon = view.findViewById(R.id.company_user_icon);
+        company_user_icon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FragmentTransaction transaction = manager.beginTransaction();
+                Company_User_Fragment user_fragment = new Company_User_Fragment();
+                transaction.replace(R.id.Fragment_Home, user_fragment);
                 transaction.addToBackStack(null);
                 transaction.commit();
             }

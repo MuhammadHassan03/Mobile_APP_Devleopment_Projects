@@ -44,8 +44,8 @@ public class Sign_up_fragment extends Fragment {
         EditText SignupEmailInput = view.findViewById(R.id.SignupEmailInput);
         EditText SignupPassInput = view.findViewById(R.id.SignupPasswordInput);
         EditText UserName = view.findViewById(R.id.username_sign_up_edit_view);
-        ConstraintLayout error_constraint_layout = view.findViewById(R.id.error_constraint_layout);
 
+        ConstraintLayout error_constraint_layout = view.findViewById(R.id.error_constraint_layout);
         Button signupBtn = view.findViewById(R.id.signupbtn);
         signupBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,11 +79,9 @@ public class Sign_up_fragment extends Fragment {
         });
         return view;
     }
-
     protected void add_data_to_database(ConstraintLayout error_constraint_layout, View view, String username, String email, String password, String accountType){
 
         error_constraint_layout.setVisibility(View.GONE);
-        Toast.makeText(context, "ErrorConstraint" + error_constraint_layout, Toast.LENGTH_SHORT).show();
         FirebaseUser firebaseUser = mAuth.getCurrentUser();
 
         User user = new User(firebaseUser.getUid(), username, email, password, accountType);
@@ -91,7 +89,6 @@ public class Sign_up_fragment extends Fragment {
         startActivity(new Intent(context, Home.class));
         getActivity().finish();
     }
-
     protected void show_sign_in_activity(){
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
@@ -100,5 +97,4 @@ public class Sign_up_fragment extends Fragment {
         transaction.addToBackStack(null);
         transaction.commit();
     }
-
 }

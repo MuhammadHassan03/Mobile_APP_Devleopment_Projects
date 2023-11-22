@@ -43,13 +43,13 @@
             android:layout_height="wrap_content"
             android:padding="10sp"
             app:layout_constraintBottom_toBottomOf="@+id/company_navbar_home_btn_fragment"
-            app:layout_constraintEnd_toStartOf="@+id/imageView6"
+            app:layout_constraintEnd_toStartOf="@+id/company_user_icon"
             app:layout_constraintStart_toEndOf="@+id/company_navbar_home_btn_fragment"
             app:layout_constraintTop_toTopOf="@+id/company_navbar_home_btn_fragment"
             app:srcCompat="@drawable/add" />
 
         <ImageView
-            android:id="@+id/imageView6"
+            android:id="@+id/company_user_icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="10sp"

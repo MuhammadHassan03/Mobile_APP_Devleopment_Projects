@@ -1,11 +1,15 @@
 package com.palmsolutions.farmconnect;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class CompanyProduct {
     String Image;
     String Title;
     String Description;
     String Price;
     String Product_id;
+
 
     public CompanyProduct(String image, String title, String description, String price) {
         Image = image;
@@ -32,6 +36,17 @@ public class CompanyProduct {
         Description = description;
         Price = price;
     }
+
+    public Map<String, Object> toMap() {
+        HashMap<String, Object> productMap = new HashMap<>();
+        productMap.put("Image", Image);
+        productMap.put("Title", Title);
+        productMap.put("Description", Description);
+        productMap.put("Price", Price);
+        productMap.put("Product_id", Product_id);
+        return productMap;
+    }
+
 
     public String getProduct_id() {
         return Product_id;

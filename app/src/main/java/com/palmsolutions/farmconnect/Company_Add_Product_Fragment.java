@@ -21,6 +21,7 @@ import androidx.fragment.app.Fragment;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -60,33 +61,29 @@ public class Company_Add_Product_Fragment extends Fragment {
         company_new_product_form_add_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                try{
-
+                try {
                     String title = company_new_product_form_title_edit_text.getText().toString();
                     String description = company_new_product_form_description_edit_text.getText().toString();
                     String price = company_new_product_form_price_edit_text.getText().toString();
 
-                    Log.e("Title", "Value : " +  title.toString());
-                    Log.e("Description" , "Value" + description.toString());
-                    Log.e("Price", "Value" + price.toString());
-
-
-                    if(selected_image == null || title.isEmpty() || description.isEmpty() || price.isEmpty()){
+                    if (selected_image == null || title.isEmpty() || description.isEmpty() || price.isEmpty()) {
                         Toast.makeText(context, "Please Enter All Fields First", Toast.LENGTH_SHORT).show();
+                    } else {
+                        upload_image_to_firebase_storage(selected_image)
+                                .addOnSuccessListener(uri -> {
+                                    String imageUrl = uri.toString();
+                                    String productId = database.child("Products").child(user.getUid()).push().getKey();
+                                    CompanyProduct newProduct = new CompanyProduct(imageUrl, title, description, price, productId);
+                                    database.child("Products").child(user.getUid()).child(productId).setValue(newProduct);
+                                    Toast.makeText(getContext(), "Product Added Successfully", Toast.LENGTH_SHORT).show();
+                                })
+                                .addOnFailureListener(e -> {
+                                    Toast.makeText(context, "Product Image Upload Failed: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                                });
                     }
-                    else{
-                        String image_url = upload_image_to_firebase_storage(selected_image);
-                        Toast.makeText(getContext(), "Image "+image_url, Toast.LENGTH_SHORT).show();
-                        String product_id = database.child("Products").child(user.getUid()).push().getKey();
-                        CompanyProduct newProduct = new CompanyProduct(image_url, title, description, price, product_id);
-                        database.child("Products").child(user.getUid()).child(product_id).setValue(newProduct);
-                        Toast.makeText(getContext(), "Product Added Successfully", Toast.LENGTH_SHORT).show();
-                    }
-
-                }
-                catch (Exception exception){
-                    Toast.makeText(context, "Error Occurred " + exception.getMessage(), Toast.LENGTH_SHORT).show();
-                    Log.e("Error" , "Occured : " + exception.getMessage());
+                } catch (Exception exception) {
+                    Toast.makeText(context, "Error Occurred: " + exception.getMessage(), Toast.LENGTH_SHORT).show();
+                    Log.e("Error", "Occurred: " + exception.getMessage());
                 }
             }
         });
@@ -120,8 +117,7 @@ public class Company_Add_Product_Fragment extends Fragment {
         startActivityForResult(galleryIntent, PICK_IMAGE_REQUEST);
     }
 
-    private String upload_image_to_firebase_storage(Uri image){
-        final String[] image_url = {""};
+    public Task<Uri> upload_image_to_firebase_storage(Uri image){
         try{
 
             final String[] image_name = {"product." + System.currentTimeMillis() + ".jpg"};
@@ -129,29 +125,19 @@ public class Company_Add_Product_Fragment extends Fragment {
 
             StorageReference storage_reference = storage.getReference().child(image_path);
 
-            storage_reference.putFile(image).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    storage_reference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                        @Override
-                        public void onSuccess(Uri uri) {
-                            image_url[0] = uri.toString();
-                            Log.e("URL" , image_url[0]);
-                        }
-                    });
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(context, "Product Image Upload Failed", Toast.LENGTH_SHORT).show();
-                }
-            });
+            UploadTask uploadTask = storage_reference.putFile(image);
 
+            return uploadTask.continueWithTask(task -> {
+                if(!task.isSuccessful()){
+                    Toast.makeText(getContext(), "" + task.getException(), Toast.LENGTH_SHORT).show();
+                }
+                return storage_reference.getDownloadUrl();
+            });
         }
         catch (Exception e){
             Toast.makeText(context, "Exception : " + e.getMessage(), Toast.LENGTH_SHORT).show();
         }
-        return image_url[0];
+        return null;
     }
 
 

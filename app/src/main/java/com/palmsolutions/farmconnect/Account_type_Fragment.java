@@ -27,7 +27,6 @@ public class Account_type_Fragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        selected = "Farmer";
         View view = inflater.inflate(R.layout.activity_account_type, container, false);
         TextView farmer_account_type = view.findViewById(R.id.farmer_account_type);
         TextView company_account_type = view.findViewById(R.id.company_account_type);
@@ -38,9 +37,9 @@ public class Account_type_Fragment extends Fragment {
         farmerImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (selected.equals("Company")) {
-                    company_account_type.setTextColor(ContextCompat.getColor(context, android.R.color.black));
+                if (!"Farmer".equals(selected)) {
                     farmer_account_type.setTextColor(ContextCompat.getColor(context, R.color.PrimaryColor));
+                    company_account_type.setTextColor(ContextCompat.getColor(context, android.R.color.black));
                     selected = "Farmer";
                 }
             }
@@ -49,9 +48,9 @@ public class Account_type_Fragment extends Fragment {
         CompanyImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (selected.equals("Farmer")) {
-                    farmer_account_type.setTextColor(ContextCompat.getColor(context, android.R.color.black));
+                if (!"Company".equals(selected)) {
                     company_account_type.setTextColor(ContextCompat.getColor(context, R.color.PrimaryColor));
+                    farmer_account_type.setTextColor(ContextCompat.getColor(context, android.R.color.black));
                     selected = "Company";
                 }
             }

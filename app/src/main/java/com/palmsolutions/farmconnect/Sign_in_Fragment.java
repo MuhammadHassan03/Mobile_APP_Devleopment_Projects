@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -28,9 +29,11 @@ public class Sign_in_Fragment extends Fragment {
     private FirebaseAuth auth;
     private FirebaseUser user;
     Context context;
+
     public Sign_in_Fragment(Context context){
         this.context = context;
     }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -45,27 +48,30 @@ public class Sign_in_Fragment extends Fragment {
             EditText loginEmailInput = view.findViewById(R.id.loginEmailInput);
             EditText loginPasswordInput = view.findViewById(R.id.loginPasswordInput);
 
-
             Button loginBtn = view.findViewById(R.id.loginBtn);
             loginBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     String email = loginEmailInput.getText().toString();
                     String pass = loginPasswordInput.getText().toString();
-                    auth.signInWithEmailAndPassword(email, pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if (task.isSuccessful()){
-                                warningLayout.setVisibility(View.GONE);
-                                startActivity(new Intent(context, Home.class));
-                                getActivity().finish();
+                    if (email.isEmpty() || pass.isEmpty()) {
+                        Toast.makeText(context, "Email and password are required", Toast.LENGTH_SHORT).show();
+                    } else {
+                        auth.signInWithEmailAndPassword(email, pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                if (task.isSuccessful()){
+                                    warningLayout.setVisibility(View.GONE);
+                                    startActivity(new Intent(context, Home.class));
+                                    getActivity().finish();
+                                }
+                                else{
+                                    warningLayout.setVisibility(View.VISIBLE);
+                                    ToastTextLogin.setText("Email or password not matched");
+                                }
                             }
-                            else{
-                                warningLayout.setVisibility(View.VISIBLE);
-                                ToastTextLogin.setText("Email or password not matched");
-                            }
-                        }
-                    });
+                        });
+                    }
                 }
             });
 
@@ -76,14 +82,10 @@ public class Sign_in_Fragment extends Fragment {
                     show_forget_password_activity();
                 }
             });
-        }
-
-        else{
+        } else {
             startActivity(new Intent(context, Home.class));
             getActivity().finish();
         }
-
-
 
         return view;
     }

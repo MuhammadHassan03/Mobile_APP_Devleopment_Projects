@@ -148,12 +148,13 @@ public class Company_User_Fragment extends Fragment {
                     public void onSuccess(byte[] bytes) {
                         Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
                         company_user_profile_image_view.setImageBitmap(bitmap);
-//                        Picasso.get().load("file:///").transform(new CircularTransform()).into(company_user_profile_image_view);
+                        Picasso.get().load("file:///").transform(new CircularTransform()).into(company_user_profile_image_view);
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         company_user_profile_image_view.setImageDrawable(getResources().getDrawable(R.drawable.user_default));
+
                     }
                 });
 

@@ -23,6 +23,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -52,6 +53,10 @@ public class company_products_recycler_view extends RecyclerView.Adapter<company
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         if(products.get(position).getImage().equals("")){
             holder.product_image_company.setImageResource(R.drawable.crops);
+            holder.bind(products.get(position));
+        }
+        else{
+            holder.bind(products.get(position));
         }
         holder.product_title_company.setText(products.get(position).getTitle());
         holder.product_description_company.setText(products.get(position).getDescription());
@@ -91,9 +96,11 @@ public class company_products_recycler_view extends RecyclerView.Adapter<company
                                 newProduct.setTitle((String) entry.getValue().get("title"));
                                 newProduct.setDescription((String) entry.getValue().get("description"));
                                 newProduct.setPrice(String.valueOf(entry.getValue().get("price")));
+
                                 products.add(newProduct);
+                                break;
                             }
-                            break;
+
                         }
                     }
                     notifyDataSetChanged();
@@ -126,6 +133,9 @@ public class company_products_recycler_view extends RecyclerView.Adapter<company
             product_edit_button = itemView.findViewById(R.id.product_edit_button);
 
 
+        }
+        public void bind(CompanyProduct product) {
+            Picasso.get().load(product.getImage()).transform(new CircularTransform()).into(product_image_company);
         }
     }
 }

@@ -16,6 +16,8 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.squareup.picasso.Picasso;
+
 public class Company_Fragment extends Fragment {
     private Context context;
     public Company_Fragment(Context context){
@@ -26,9 +28,9 @@ public class Company_Fragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         FragmentManager manager = getFragmentManager();
         View view = inflater.inflate(R.layout.company_fragment, container, false);
+        ImageView company_navbar_home_btn_fragment = view.findViewById(R.id.company_navbar_home_btn_fragment);
         ImageView add_product_constraint_layout_company = view.findViewById(R.id.all_product_constraint_layout_company);
         RecyclerView company_products_recycler_view = view.findViewById(R.id.company_products_recycler_view);
-
         company_products_recycler_view.setLayoutManager(new LinearLayoutManager(context));
         company_products_recycler_view.setAdapter(new company_products_recycler_view(context, manager));
 

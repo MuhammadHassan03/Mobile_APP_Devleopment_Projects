@@ -93,7 +93,6 @@ public class company_products_recycler_view extends RecyclerView.Adapter<company
                                 newProduct.setPrice(String.valueOf(entry.getValue().get("price")));
                                 products.add(newProduct);
                             }
-                            Toast.makeText(context, "Data Fetching Done", Toast.LENGTH_SHORT).show();
                             break;
                         }
                     }

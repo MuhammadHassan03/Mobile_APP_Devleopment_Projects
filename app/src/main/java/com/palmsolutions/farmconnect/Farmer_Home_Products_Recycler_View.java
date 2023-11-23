@@ -11,6 +11,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -33,7 +35,9 @@ public class Farmer_Home_Products_Recycler_View extends RecyclerView.Adapter<Far
     private FirebaseUser user;
     private DatabaseReference database;
     private ArrayList<CompanyProduct> products;
-    public Farmer_Home_Products_Recycler_View(Context context){
+    private FragmentManager manager;
+    public Farmer_Home_Products_Recycler_View(Context context, FragmentManager manager){
+        this.manager = manager;
         this.context = context;
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
@@ -54,6 +58,16 @@ public class Farmer_Home_Products_Recycler_View extends RecyclerView.Adapter<Far
         holder.farmer_home_product_item_title_text_view.setText(products.get(position).getTitle());
         holder.farmer_home_product_item_price_text_view.setText("PKR " + products.get(position).getPrice());
         holder.farmer_home_product_item_button.setText("Details");
+        holder.farmer_home_product_item_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FragmentTransaction transaction = manager.beginTransaction();
+                Farmer_Product_Detail_Fragment product_detail_fragment = new Farmer_Product_Detail_Fragment(products.get(position));
+                transaction.replace(R.id.Fragment_Home, product_detail_fragment);
+                transaction.addToBackStack(null);
+                transaction.commit();
+            }
+        });
     }
 
     @Override
@@ -66,12 +80,14 @@ public class Farmer_Home_Products_Recycler_View extends RecyclerView.Adapter<Far
         TextView farmer_home_product_item_title_text_view;
         TextView farmer_home_product_item_price_text_view;
         Button farmer_home_product_item_button;
+        FragmentManager manager;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             farmer_home_product_item_image_view = itemView.findViewById(R.id.farmer_home_product_item_image_view);
             farmer_home_product_item_title_text_view = itemView.findViewById(R.id.farmer_home_product_item_title_text_view);
             farmer_home_product_item_price_text_view = itemView.findViewById(R.id.farmer_home_product_item_price_text_view);
             farmer_home_product_item_button = itemView.findViewById(R.id.farmer_home_product_item_button);
+
         }
     }
 

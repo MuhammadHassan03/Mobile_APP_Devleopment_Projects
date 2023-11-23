@@ -87,10 +87,16 @@ public class Home extends AppCompatActivity {
             transaction.commit();
         }
         else if("Farmer".equals(account_type)){
-
+//            progress_bar_home.setVisibility(View.VISIBLE);
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction transaction = fragmentManager.beginTransaction();
+            Farmer_Fragment farmerFragment = new Farmer_Fragment();
+            transaction.add(R.id.Fragment_Home, farmerFragment);
+            transaction.addToBackStack(null);
+            transaction.commit();
         }
         else{
-            Toast.makeText(this, "Nothing", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Please Select Your Correct Account Type", Toast.LENGTH_SHORT).show();
         }
     }
 }

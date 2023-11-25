@@ -28,6 +28,8 @@ public class ForgetPassword extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        FullScreenUtil.hideSystemUI(getWindow().getDecorView());
+
         setContentView(R.layout.activity_forget_password);
         mAuth = FirebaseAuth.getInstance();
         databaseReference = FirebaseDatabase.getInstance().getReference();

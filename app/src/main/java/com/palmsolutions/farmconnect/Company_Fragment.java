@@ -24,6 +24,8 @@ public class Company_Fragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         FragmentManager manager = getFragmentManager();
+        FullScreenUtil.hideSystemUI(requireActivity().getWindow().getDecorView());
+
         View view = inflater.inflate(R.layout.company_fragment, container, false);
         ImageView company_navbar_home_btn_fragment = view.findViewById(R.id.company_navbar_home_btn_fragment);
         ImageView add_product_constraint_layout_company = view.findViewById(R.id.all_product_constraint_layout_company);

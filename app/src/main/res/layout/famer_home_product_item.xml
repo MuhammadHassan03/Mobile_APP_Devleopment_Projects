@@ -8,16 +8,20 @@
     <androidx.cardview.widget.CardView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:clipToPadding="true"
         app:cardCornerRadius="8sp"
-        app:cardElevation="2sp"
-        app:cardMaxElevation="5sp"
+        app:cardElevation="5sp"
+        app:cardMaxElevation="8sp"
         app:cardPreventCornerOverlap="true"
-        app:cardUseCompatPadding="true">
+        app:cardUseCompatPadding="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="3sp">
+            android:padding="8sp">
 
             <ImageView
                 android:id="@+id/farmer_home_product_item_image_view"
@@ -53,12 +57,12 @@
                 android:id="@+id/farmer_home_product_item_button"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:background="@drawable/navbar_background"
+                android:background="@drawable/button_radius"
                 android:textColor="@color/white"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/farmer_home_product_item_title_text_view" />
+                app:layout_constraintTop_toBottomOf="@+id/farmer_home_product_item_price_text_view" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>

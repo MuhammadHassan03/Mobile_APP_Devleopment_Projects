@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Farm Connect</string>
     <array name="farmer_category">
+        <item>All</item>
         <item>Grains</item>
         <item>Fertilizer</item>
         <item>Equipment</item>

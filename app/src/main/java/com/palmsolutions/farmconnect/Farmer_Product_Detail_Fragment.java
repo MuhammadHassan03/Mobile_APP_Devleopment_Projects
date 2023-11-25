@@ -36,6 +36,7 @@ public class Farmer_Product_Detail_Fragment extends Fragment {
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
         database = FirebaseDatabase.getInstance().getReference();
+        FullScreenUtil.hideSystemUI(requireActivity().getWindow().getDecorView());
 
         View view = inflater.inflate(R.layout.farmer_home_product_detail, container, false);
 
@@ -64,11 +65,19 @@ public class Farmer_Product_Detail_Fragment extends Fragment {
             farmer_product_detail_chat_btn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    ChatModel chat = new ChatModel(user.getUid(), product.getUser_uuid());
-                    database.child("Chats").child(user.getUid()).setValue(chat);
+                    String chat_id;
+                    String uid1 = user.getUid();
+                    String uid2 = product.getUser_uuid();
+                    if (uid1.compareTo(uid2) < 0) {
+                        chat_id = uid1 + "_" + uid2;
+                    } else {
+                        chat_id = uid2 + "_" + uid1;
+                    }
+                    ChatModel chat = new ChatModel(user.getUid(), product.getUser_uuid(), chat_id);
+
                     FragmentManager manager = getFragmentManager();
                     FragmentTransaction transaction = manager.beginTransaction();
-                    Chat_Chatting_Fragment chat_chatting_fragment = new Chat_Chatting_Fragment();
+                    Chat_Chatting_Fragment chat_chatting_fragment = new Chat_Chatting_Fragment(chat);
                     transaction.replace(R.id.Fragment_Home, chat_chatting_fragment);
                     transaction.addToBackStack(null);
                     transaction.commit();

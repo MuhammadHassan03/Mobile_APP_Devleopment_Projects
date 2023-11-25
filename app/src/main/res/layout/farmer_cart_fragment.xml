@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:alwaysDrawnWithCache="false"
-        android:background="@drawable/navbar_background"
+        android:background="@drawable/navbar_radius"
         android:padding="3sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -48,7 +48,7 @@
             app:srcCompat="@drawable/search_ai" />
 
         <ImageView
-            android:id="@+id/imageView4"
+            android:id="@+id/farmer_navbar_chat_btn_fragment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -78,7 +78,7 @@
             android:id="@+id/farmer_cart_pay_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:background="@drawable/navbar_background"
+            android:background="@drawable/button_radius"
             android:fontFamily="@font/sfregular"
             android:text="Proceed To Pay"
             android:textColor="#FFFFFF"

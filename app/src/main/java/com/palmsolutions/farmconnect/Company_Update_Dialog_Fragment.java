@@ -61,6 +61,7 @@ public class Company_Update_Dialog_Fragment extends Fragment {
         user = auth.getCurrentUser();
         database = FirebaseDatabase.getInstance().getReference();
         storage = FirebaseStorage.getInstance();
+        FullScreenUtil.hideSystemUI(requireActivity().getWindow().getDecorView());
 
         View view = inflater.inflate(R.layout.company_edit_dialog, container, false);
         EditText company_update_dialog_title_edit_text = view.findViewById(R.id.company_update_dialog_title_edit_text);

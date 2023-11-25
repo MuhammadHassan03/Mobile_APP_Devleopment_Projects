@@ -55,6 +55,7 @@ public class Company_Add_Product_Fragment extends Fragment {
         user = auth.getCurrentUser();
         database = FirebaseDatabase.getInstance().getReference();
         storage = FirebaseStorage.getInstance();
+        FullScreenUtil.hideSystemUI(requireActivity().getWindow().getDecorView());
 
         View view = inflater.inflate(R.layout.company_add_product_fragment, container, false);
 

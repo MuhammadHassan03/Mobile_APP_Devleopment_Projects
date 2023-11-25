@@ -31,7 +31,7 @@
             android:id="@+id/account_type_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:background="@drawable/navbar_background"
+            android:background="@drawable/button_radius"
             android:fontFamily="@font/sfregular"
             android:text="Next"
             android:textColor="#FFFFFF"

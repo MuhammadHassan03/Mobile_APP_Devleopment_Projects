@@ -11,6 +11,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        FullScreenUtil.hideSystemUI(getWindow().getDecorView());
+
         setContentView(R.layout.activity_main);
 
         new Handler().postDelayed(new Runnable() {

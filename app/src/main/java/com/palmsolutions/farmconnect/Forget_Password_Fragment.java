@@ -29,6 +29,7 @@ public class Forget_Password_Fragment extends Fragment {
         View view = inflater.inflate(R.layout.activity_forget_password, container, false);
         mAuth = FirebaseAuth.getInstance();
         databaseReference = FirebaseDatabase.getInstance().getReference();
+        FullScreenUtil.hideSystemUI(requireActivity().getWindow().getDecorView());
 
         EditText forgotEmailInput = view.findViewById(R.id.forgotEmailInput);
         Button forgotBtn = view.findViewById(R.id.forgotBtn);

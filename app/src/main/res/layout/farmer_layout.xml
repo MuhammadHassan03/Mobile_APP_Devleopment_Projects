@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:alwaysDrawnWithCache="false"
-        android:background="@drawable/navbar_background"
+        android:background="@drawable/navbar_radius"
         android:padding="3sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -49,7 +49,7 @@
             app:srcCompat="@drawable/search_ai" />
 
         <ImageView
-            android:id="@+id/imageView4"
+            android:id="@+id/farmer_navbar_chat_btn_fragment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -84,7 +84,6 @@
             android:layout_height="match_parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -161,16 +160,15 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
-        <Button
-            android:id="@+id/button"
+        <ImageButton
+            android:id="@+id/farmer_home_categories_filter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/navbar_background"
-            android:drawingCacheQuality="auto"
-            android:text="cateogry"
-            android:textColor="@color/white"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:background="@drawable/button_radius"
+            android:padding="5sp"
+            android:src="@drawable/filter"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

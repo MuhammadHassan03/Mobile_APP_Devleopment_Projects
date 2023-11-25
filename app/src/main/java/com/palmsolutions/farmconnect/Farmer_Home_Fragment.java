@@ -23,6 +23,7 @@ public class Farmer_Home_Fragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
+        FullScreenUtil.hideSystemUI(requireActivity().getWindow().getDecorView());
 
         View view = inflater.inflate(R.layout.farmer_layout, container, false);
 

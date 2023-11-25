@@ -37,6 +37,8 @@ public class Sign_in_Fragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        FullScreenUtil.hideSystemUI(requireActivity().getWindow().getDecorView());
+
         View view = inflater.inflate(R.layout.activity_sign_in, container, false);
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();

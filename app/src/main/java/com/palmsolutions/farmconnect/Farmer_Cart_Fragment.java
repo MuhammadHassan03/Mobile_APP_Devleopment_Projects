@@ -18,6 +18,8 @@ public class Farmer_Cart_Fragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        FullScreenUtil.hideSystemUI(requireActivity().getWindow().getDecorView());
+
         View view = inflater.inflate(R.layout.farmer_cart_fragment, container, false);
 
         RecyclerView farmer_cart_recycler_view = view.findViewById(R.id.farmer_cart_recycler_view);

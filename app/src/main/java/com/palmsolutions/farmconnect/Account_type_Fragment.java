@@ -27,6 +27,8 @@ public class Account_type_Fragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        FullScreenUtil.hideSystemUI(requireActivity().getWindow().getDecorView());
+
         View view = inflater.inflate(R.layout.activity_account_type, container, false);
         TextView farmer_account_type = view.findViewById(R.id.farmer_account_type);
         TextView company_account_type = view.findViewById(R.id.company_account_type);

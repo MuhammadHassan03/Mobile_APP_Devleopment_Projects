@@ -1,14 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="5sp"
+    android:layout_marginRight="5sp">
 
     <Button
         android:id="@+id/farmer_category_item_button"
+        style="@style/buttons_radius"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/navbar_background"
-        android:paddingLeft="5sp"
-        android:paddingRight="5sp"
-        android:textColor="#FFFFFF" />
+        android:background="@drawable/button_radius"
+        android:clickable="true"
+        android:elevation="5sp"
+        android:fadingEdge="horizontal|vertical"
+        android:focusable="auto"
+        android:fontFamily="@font/sfregular"
+        android:padding="5sp"
+        android:textColor="#FFFFFF"
+        android:textSize="10sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

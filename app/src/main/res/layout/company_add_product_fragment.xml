@@ -9,7 +9,6 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="3sp"
         app:layout_constraintTop_toBottomOf="@+id/company_add_product_image_layout">
 
         <ScrollView
@@ -19,7 +18,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="10sp"
+                android:padding="3sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/company_add_product_image_layout">
@@ -180,7 +179,7 @@
                         style="@style/buttonBackground"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/navbar_background"
+                        android:background="@drawable/button_radius"
                         android:padding="10sp"
                         android:text="Add"
                         android:textColor="@color/white"
@@ -198,7 +197,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:alwaysDrawnWithCache="false"
-        android:background="@drawable/navbar_background"
+        android:background="@drawable/navbar_radius"
         android:padding="3sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

@@ -16,6 +16,7 @@ public class Authentication extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        FullScreenUtil.hideSystemUI(getWindow().getDecorView());
         setContentView(R.layout.activity_authentication);
 
 

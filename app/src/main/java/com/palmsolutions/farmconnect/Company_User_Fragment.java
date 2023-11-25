@@ -52,6 +52,7 @@ public class Company_User_Fragment extends Fragment {
         database = FirebaseDatabase.getInstance().getReference();
         storage = FirebaseStorage.getInstance().getReference();
         PICK_IMAGE_REQUEST = 1;
+        FullScreenUtil.hideSystemUI(requireActivity().getWindow().getDecorView());
 
         View view = inflater.inflate(R.layout.company_user_fragment, container, false);
 

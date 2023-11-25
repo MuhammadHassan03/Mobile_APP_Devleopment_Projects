@@ -37,6 +37,8 @@ public class Sign_up_fragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        FullScreenUtil.hideSystemUI(requireActivity().getWindow().getDecorView());
+
         View view = inflater.inflate(R.layout.activity_sign_up,container,false);
         mAuth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance().getReference();

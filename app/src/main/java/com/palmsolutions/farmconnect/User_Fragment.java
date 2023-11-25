@@ -34,6 +34,7 @@ public class User_Fragment extends Fragment {
         user = auth.getCurrentUser();
         database = FirebaseDatabase.getInstance().getReference();
         storage = FirebaseStorage.getInstance().getReference();
+        FullScreenUtil.hideSystemUI(requireActivity().getWindow().getDecorView());
 
         View view = inflater.inflate(R.layout.user_fragment, container, false);
 

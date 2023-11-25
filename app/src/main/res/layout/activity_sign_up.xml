@@ -273,7 +273,7 @@
                     android:id="@+id/signupbtn"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/navbar_background"
+                    android:background="@drawable/button_radius"
                     android:padding="10sp"
                     android:text="Sign Up"
                     android:textColor="@color/white"

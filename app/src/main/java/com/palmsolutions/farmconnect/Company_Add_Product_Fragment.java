@@ -10,9 +10,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -30,6 +33,8 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.util.Map;
+
 public class Company_Add_Product_Fragment extends Fragment {
     private static final int PICK_IMAGE_REQUEST = 1;
     private Context context;
@@ -38,6 +43,7 @@ public class Company_Add_Product_Fragment extends Fragment {
     private DatabaseReference database;
     private FirebaseStorage storage;
     private Uri selected_image;
+    private String product_type;
 
     public Company_Add_Product_Fragment(Context context){
         this.context = context;
@@ -66,14 +72,15 @@ public class Company_Add_Product_Fragment extends Fragment {
                     String description = company_new_product_form_description_edit_text.getText().toString();
                     String price = company_new_product_form_price_edit_text.getText().toString();
 
-                    if (selected_image == null || title.isEmpty() || description.isEmpty() || price.isEmpty()) {
+                    if (selected_image == null || title.isEmpty() || description.isEmpty() || price.isEmpty() || product_type.equals("")) {
                         Toast.makeText(context, "Please Enter All Fields First", Toast.LENGTH_SHORT).show();
                     } else {
                         upload_image_to_firebase_storage(selected_image)
                                 .addOnSuccessListener(uri -> {
                                     String imageUrl = uri.toString();
                                     String productId = database.child("Products").child(user.getUid()).push().getKey();
-                                    CompanyProduct newProduct = new CompanyProduct(imageUrl, title, description, price, productId);
+                                    CompanyProduct newProduct = new CompanyProduct(imageUrl, title, description, price, productId, product_type, user.getUid());
+                                    newProduct.setUser_uuid(user.getUid());
                                     database.child("Products").child(user.getUid()).child(productId).setValue(newProduct);
                                     Toast.makeText(getContext(), "Product Added Successfully", Toast.LENGTH_SHORT).show();
                                 })
@@ -93,6 +100,23 @@ public class Company_Add_Product_Fragment extends Fragment {
             @Override
             public void onClick(View view) {
                 open_gallery_intent();
+            }
+        });
+
+        Spinner company_new_product_form_spinner = view.findViewById(R.id.company_new_product_form_spinner);
+        ArrayAdapter<CharSequence> product_type_adapter = ArrayAdapter.createFromResource(getContext(), R.array.farmer_category, android.R.layout.simple_spinner_item);
+        product_type_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        company_new_product_form_spinner.setAdapter(product_type_adapter);
+
+        company_new_product_form_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
+                product_type = adapterView.getItemAtPosition(position).toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
             }
         });
         return view;

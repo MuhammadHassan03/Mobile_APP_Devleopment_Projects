@@ -253,7 +253,7 @@
                     android:paddingLeft="10sp"
                     android:paddingRight="10sp"
                     android:text="Already Have an Account?"
-                    android:textColor="@color/PrimaryColor"
+                    android:textColor="@color/navbar_background_color"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -271,9 +271,9 @@
 
                 <Button
                     android:id="@+id/signupbtn"
-                    style="@style/buttonBackground"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/navbar_background"
                     android:padding="10sp"
                     android:text="Sign Up"
                     android:textColor="@color/white"

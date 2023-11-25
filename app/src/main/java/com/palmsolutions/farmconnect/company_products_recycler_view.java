@@ -60,7 +60,7 @@ public class company_products_recycler_view extends RecyclerView.Adapter<company
         }
         holder.product_title_company.setText(products.get(position).getTitle());
         holder.product_description_company.setText(products.get(position).getDescription());
-        holder.product_price_company.setText("$" + products.get(position).getPrice() + ".0");
+        holder.product_price_company.setText("RS. " + products.get(position).getPrice());
         holder.product_edit_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -78,32 +78,30 @@ public class company_products_recycler_view extends RecyclerView.Adapter<company
         return products.size();
     }
 
-    private void fetchDataFromFirebase(){
-        try{
+    private void fetchDataFromFirebase() {
+        try {
             auth = FirebaseAuth.getInstance();
             user = auth.getCurrentUser();
             database = FirebaseDatabase.getInstance().getReference();
+
             ValueEventListener valueEventListener = new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    for (DataSnapshot snapshot1 : snapshot.child("Products").getChildren()){
-                        if(snapshot1.getKey().equals(user.getUid())){
-                            Map<String, Map<String, Object>> products_data = snapshot1.getValue(new GenericTypeIndicator<Map<String, Map<String, Object>>>(){});
-                            for(Map.Entry<String, Map<String, Object>> entry : products_data.entrySet()){
-                                CompanyProduct newProduct = new CompanyProduct();
-                                newProduct.setProduct_id((String) entry.getValue().get("product_id"));
-                                newProduct.setImage((String) entry.getValue().get("image"));
-                                newProduct.setTitle((String) entry.getValue().get("title"));
-                                newProduct.setDescription((String) entry.getValue().get("description"));
-                                newProduct.setPrice(String.valueOf(entry.getValue().get("price")));
-
-                                products.add(newProduct);
+                    try {
+                        products.clear();
+                        for (DataSnapshot snapshot1 : snapshot.child("Products").getChildren()) {
+                            if (snapshot1.getKey().equals(user.getUid())) {
+                                for (DataSnapshot productSnapshot : snapshot1.getChildren()) {
+                                    CompanyProduct newProduct = productSnapshot.getValue(CompanyProduct.class);
+                                    products.add(newProduct);
+                                }
                                 break;
                             }
-
                         }
+                        notifyDataSetChanged();
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
-                    notifyDataSetChanged();
                 }
 
                 @Override
@@ -111,9 +109,9 @@ public class company_products_recycler_view extends RecyclerView.Adapter<company
                     Toast.makeText(context, "Internet Error", Toast.LENGTH_SHORT).show();
                 }
             };
-            database.addValueEventListener(valueEventListener);
-        }
-        catch (Exception e){
+
+            database.addListenerForSingleValueEvent(valueEventListener);
+        } catch (Exception e) {
             Toast.makeText(context, "Exception" + e.getMessage(), Toast.LENGTH_SHORT).show();
         }
     }

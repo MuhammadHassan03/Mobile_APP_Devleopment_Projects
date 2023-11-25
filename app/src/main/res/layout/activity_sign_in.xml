@@ -22,7 +22,7 @@
             android:paddingLeft="10sp"
             android:paddingRight="10sp"
             android:text="Forget Password?"
-            android:textColor="@color/PrimaryColor"
+            android:textColor="@color/navbar_background_color"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -34,16 +34,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="10sp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout11">
 
         <Button
             android:id="@+id/loginBtn"
-            style="@style/buttonBackground"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:background="@drawable/navbar_background"
             android:padding="10sp"
             android:text="Log in"
             android:textColor="@color/white"

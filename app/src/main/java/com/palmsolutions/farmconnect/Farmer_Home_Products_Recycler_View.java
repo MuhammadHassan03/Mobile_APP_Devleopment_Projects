@@ -57,7 +57,12 @@ public class Farmer_Home_Products_Recycler_View extends RecyclerView.Adapter<Far
         Picasso.get().load(products.get(position).getImage()).into(holder.farmer_home_product_item_image_view);
         holder.farmer_home_product_item_title_text_view.setText(products.get(position).getTitle());
         holder.farmer_home_product_item_price_text_view.setText("PKR " + products.get(position).getPrice());
-        holder.farmer_home_product_item_button.setText("Details");
+        if("Grains".equals(products.get(position).getProduct_type())){
+            holder.farmer_home_product_item_button.setText("Sell");
+        }
+        else{
+            holder.farmer_home_product_item_button.setText("Buy");
+        }
         holder.farmer_home_product_item_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

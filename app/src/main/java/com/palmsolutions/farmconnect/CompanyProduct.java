@@ -9,32 +9,23 @@ public class CompanyProduct {
     String Description;
     String Price;
     String Product_id;
+    String Product_type;
+    String user_uuid;
 
-
-    public CompanyProduct(String image, String title, String description, String price) {
-        Image = image;
-        Title = title;
-        Description = description;
-        Price = price;
-    }
-
-    public CompanyProduct(String image, String title, String description, String price, String product_id) {
+    public CompanyProduct(String image, String title, String description, String price, String product_id, String product_type, String user_uuid) {
         Image = image;
         Title = title;
         Description = description;
         Price = price;
         Product_id = product_id;
+        this.Product_type = product_type;
+        this.user_uuid = user_uuid;
     }
 
 
 
     public CompanyProduct(){
 
-    }
-    public CompanyProduct(String title, String description, String price) {
-        Title = title;
-        Description = description;
-        Price = price;
     }
 
     public Map<String, Object> toMap() {
@@ -44,9 +35,19 @@ public class CompanyProduct {
         productMap.put("Description", Description);
         productMap.put("Price", Price);
         productMap.put("Product_id", Product_id);
+        productMap.put("Product_type", Product_type);
+        productMap.put("User_UUID", user_uuid);
+
         return productMap;
     }
 
+    public String getUser_uuid() {
+        return user_uuid;
+    }
+
+    public void setUser_uuid(String user_uuid) {
+        this.user_uuid = user_uuid;
+    }
 
     public String getProduct_id() {
         return Product_id;
@@ -86,5 +87,13 @@ public class CompanyProduct {
 
     public void setPrice(String price) {
         Price = price;
+    }
+
+    public String getProduct_type() {
+        return Product_type;
+    }
+
+    public void setProduct_type(String product_type) {
+        Product_type = product_type;
     }
 }

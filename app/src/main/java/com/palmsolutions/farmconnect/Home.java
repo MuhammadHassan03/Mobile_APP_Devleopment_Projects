@@ -8,6 +8,7 @@ import androidx.fragment.app.FragmentTransaction;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -61,6 +62,26 @@ public class Home extends AppCompatActivity {
                     if(snapshot1.getKey().equals(user.getUid())){
                         User user1 = snapshot1.getValue(User.class);
                         account_type = user1.getAccountType();
+                        if("Farmer".equals(account_type)){
+                            ImageView home_cart_icon = findViewById(R.id.home_cart_icon);
+                            home_cart_icon.setVisibility(View.VISIBLE);
+                            home_cart_icon.setImageDrawable(getResources().getDrawable(R.drawable.cart));
+                            home_cart_icon.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    FragmentManager manager = getSupportFragmentManager();
+                                    FragmentTransaction transaction = manager.beginTransaction();
+                                    Farmer_Cart_Fragment cart_fragment = new Farmer_Cart_Fragment();
+                                    transaction.replace(R.id.Fragment_Home, cart_fragment);
+                                    transaction.addToBackStack(null);
+                                    transaction.commit();
+                                }
+                            });
+                        }
+                        else if("Company".equals(account_type)){
+                            ImageView home_cart_icon = findViewById(R.id.home_cart_icon);
+                            home_cart_icon.setVisibility(View.GONE);
+                        }
                         load_fragment_according_to_account_type();
                         break;
                     }

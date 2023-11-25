@@ -12,9 +12,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -41,6 +44,7 @@ public class Company_Update_Dialog_Fragment extends Fragment {
     private DatabaseReference database;
     private FirebaseStorage storage;
     private static int PICK_IMAGE_REQUEST;
+    private String product_type;
 
 
     private Uri selected_image;
@@ -77,24 +81,26 @@ public class Company_Update_Dialog_Fragment extends Fragment {
                     String Title = company_update_dialog_title_edit_text.getText().toString();
                     String Description = company_update_dialog_description_edit_text.getText().toString();
                     String Price = company_update_dialog_price_edit_text.getText().toString();
-                    upload_image_to_firebase_storage(selected_image).addOnSuccessListener(uri -> {
-                        String imageUrl = uri.toString();
-                        CompanyProduct updated_product = new CompanyProduct(imageUrl, Title, Description, Price, product.Product_id);
-                        database.child("Products").child(user.getUid()).child(product.getProduct_id()).setValue(updated_product);
-                        Toast.makeText(getContext(), "Product Updated Successfully", Toast.LENGTH_SHORT).show();
-                    }).addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(getContext(), "Internet Error!", Toast.LENGTH_SHORT).show();
-                        }
-                    });
-                }
-                catch (Exception e){
-                    Log.e("Error" , e.getMessage());
+
+                    if (selected_image != null) {
+                        // If a new image is selected, upload it to Firebase Storage
+                        upload_image_to_firebase_storage(selected_image)
+                                .addOnSuccessListener(uri -> {
+                                    String imageUrl = uri.toString();
+                                    updateProduct(Title, Description, Price, imageUrl);
+                                })
+                                .addOnFailureListener(e -> {
+                                    Toast.makeText(getContext(), "Product Image Upload Failed: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                                });
+                    } else {
+                        // If no new image is selected, update with the existing image URL
+                        updateProduct(Title, Description, Price, product.getImage());
+                    }
+                } catch (Exception e) {
+                    Log.e("Error", e.getMessage());
                 }
             }
         });
-
         Button company_update_dialog_delete_button = view.findViewById(R.id.company_update_dialog_delete_button);
         company_update_dialog_delete_button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -129,7 +135,59 @@ public class Company_Update_Dialog_Fragment extends Fragment {
             Picasso.get().load(product.getImage()).into(company_update_dialog_image);
         }
 
+        Spinner company_update_dialog_spinner = view.findViewById(R.id.company_update_dialog_spinner);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(), R.array.farmer_category, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        company_update_dialog_spinner.setAdapter(adapter);
+
+        if("Grains".equals(product.getProduct_type())){
+            company_update_dialog_spinner.setSelection(1);
+            product_type = "Grains";
+        }
+        else if("Fertilizer".equals(product.getProduct_type())){
+            company_update_dialog_spinner.setSelection(1);
+            product_type = "Fertilizer";
+        }
+        else if("Equipment".equals(product.getProduct_type())){
+            company_update_dialog_spinner.setSelection(2);
+            product_type = "Equipment";
+        }
+        else{
+            company_update_dialog_spinner.setSelection(0);
+            product_type = "Grains";
+        }
+
+        company_update_dialog_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
+                product_type = adapterView.getItemAtPosition(position).toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
         return view;
+    }
+
+    private void updateProduct(String title, String description, String price, String imageUrl) {
+        CompanyProduct updated_product = new CompanyProduct(imageUrl, title, description, price, product.getProduct_id(), product_type, user.getUid());
+        updated_product.setUser_uuid(user.getUid());
+        database.child("Products").child(user.getUid()).child(product.getProduct_id()).setValue(updated_product)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Toast.makeText(getContext(), "Product Updated Successfully", Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(getContext(), "Product Update Failed: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 
     public Task<Uri> upload_image_to_firebase_storage(Uri image){

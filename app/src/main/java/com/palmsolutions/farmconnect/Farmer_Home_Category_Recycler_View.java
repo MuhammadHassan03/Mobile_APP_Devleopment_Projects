@@ -20,8 +20,15 @@ public class Farmer_Home_Category_Recycler_View extends RecyclerView.Adapter<Far
     ArrayList<String> items;
     Context context;
 
-    public Farmer_Home_Category_Recycler_View(Context context){
+    public interface CategorySelectionListener {
+        void onCategorySelected(String category);
+    }
+
+    private CategorySelectionListener listener;
+
+    public Farmer_Home_Category_Recycler_View(Context context, CategorySelectionListener listener){
         this.context = context;
+        this.listener = listener;
         String[] categories = context.getResources().getStringArray(R.array.farmer_category);
         items = new ArrayList<>(Arrays.asList(categories));
     }
@@ -35,6 +42,14 @@ public class Farmer_Home_Category_Recycler_View extends RecyclerView.Adapter<Far
     @Override
     public void onBindViewHolder(@NonNull Farmer_Home_Category_Recycler_View.ViewHolder holder, int position) {
         holder.farmer_category_item_button.setText(items.get(position));
+        holder.farmer_category_item_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (listener != null) {
+                    listener.onCategorySelected(items.get(position));
+                }
+            }
+        });
     }
 
     @Override
@@ -49,4 +64,5 @@ public class Farmer_Home_Category_Recycler_View extends RecyclerView.Adapter<Far
             farmer_category_item_button = itemView.findViewById(R.id.farmer_category_item_button);
         }
     }
+
 }

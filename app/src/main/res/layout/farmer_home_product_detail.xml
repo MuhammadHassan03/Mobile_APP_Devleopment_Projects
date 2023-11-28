@@ -34,8 +34,9 @@
                     android:id="@+id/constraintLayout"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    tools:layout_editor_absoluteX="10dp"
-                    tools:layout_editor_absoluteY="10dp">
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
 
                     <ImageView
                         android:id="@+id/farmer_product_detail_image"
@@ -50,14 +51,17 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:padding="10sp"
-                    app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
-                    tools:layout_editor_absoluteX="10dp">
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
 
                     <TextView
                         android:id="@+id/farmer_product_detail_title"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:fontFamily="@font/sfbold"
                         android:text="TextView"
+                        android:textSize="18sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -66,7 +70,9 @@
                         android:id="@+id/farmer_product_detail_price"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:fontFamily="@font/sfbold"
                         android:text="TextView"
+                        android:textSize="16sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/farmer_product_detail_title" />
@@ -75,7 +81,9 @@
                         android:id="@+id/farmer_product_detail_description"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:fontFamily="@font/sfregular"
                         android:text="TextView"
+                        android:textSize="16sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/farmer_product_detail_price" />

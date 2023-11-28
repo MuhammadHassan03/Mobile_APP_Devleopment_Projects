@@ -13,6 +13,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -44,6 +46,22 @@ public class Chat_Chatting_Fragment extends Fragment {
         FullScreenUtil.hideSystemUI(requireActivity().getWindow().getDecorView());
 
         View view = inflater.inflate(R.layout.chat_chatting_fragment, container, false);
+        RecyclerView chat_reciever_messages_recycler = view.findViewById(R.id.chat_receiver_messages_recycler_view);
+        RecyclerView chat_sender_messages_recycler_view = view.findViewById(R.id.chat_sender_messages_recycler_view);
+
+
+        LinearLayoutManager chat_reciever_messages_linear_layout = new LinearLayoutManager(requireContext());
+        chat_reciever_messages_linear_layout.setReverseLayout(true);
+        chat_reciever_messages_linear_layout.setStackFromEnd(true);
+        chat_reciever_messages_recycler.setLayoutManager(chat_reciever_messages_linear_layout);
+        chat_reciever_messages_recycler.setAdapter(new Chat_Receiver_Messages_Recycler_View(requireContext(), chat));
+
+        LinearLayoutManager chat_sender_messages_linear_layout = new LinearLayoutManager(requireContext());
+        chat_sender_messages_linear_layout.setReverseLayout(true);
+        chat_sender_messages_linear_layout.setStackFromEnd(true);
+        chat_sender_messages_recycler_view.setLayoutManager(chat_sender_messages_linear_layout);
+        chat_sender_messages_recycler_view.setAdapter(new Chat_Sender_Messages_Recycler_View(requireContext(), chat));
+
         return view;
     }
 
@@ -60,8 +78,8 @@ public class Chat_Chatting_Fragment extends Fragment {
             ValueEventListener fetch_receiver_data = new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    if(snapshot.child("Users").child(chat.getReciever()).exists()){
-                        receiver_data = snapshot.child("Users").child(chat.getReciever()).getValue(User.class);
+                    if(snapshot.child("Users").child(chat.getReceiver()).exists()){
+                        receiver_data = snapshot.child("Users").child(chat.getReceiver()).getValue(User.class);
                         if (getView() != null) {
                             TextView chat_reciever_user_name = getView().findViewById(R.id.chat_reciever_user_name);
                             chat_reciever_user_name.setText(receiver_data.getUsername());
@@ -75,19 +93,20 @@ public class Chat_Chatting_Fragment extends Fragment {
                                     handle_messages();
                                 }
                             });
+
                         }
                     }
                 }
 
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {
-                    Toast.makeText(getContext(), "Internet Error!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(requireContext(), "Internet Error!", Toast.LENGTH_SHORT).show();
                 }
             };
             database.addValueEventListener(fetch_receiver_data);
         }
         catch (Exception e){
-            Toast.makeText(getContext(), "Internet Error!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(requireContext(), "Internet Error!", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -97,17 +116,16 @@ public class Chat_Chatting_Fragment extends Fragment {
             String message = chat_send_message.getText().toString();
 
             if (!message.isEmpty()) {
-                DatabaseReference messagesRef = database.child("Chats").child(user.getUid()).child(chat.chat_id).child("Messages");
+                DatabaseReference messagesRef = database.child("Chats").child(chat.getChatId()).child("Messages");
                 String Message_ID = messagesRef.push().getKey();
-                Message new_message = new Message(Message_ID, user.getUid(), chat.getChat_id(), message);
+                Message new_message = new Message(Message_ID, user.getUid(), chat.getReceiver(), message, chat.getChatId());
                 messagesRef.child(Message_ID).setValue(new_message);
-
                 chat_send_message.setText("");
             }
 
         }
         catch (Exception e){
-            Toast.makeText(getContext(), "Internet Error!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(requireContext(), "Internet Error!", Toast.LENGTH_SHORT).show();
         }
     }
 

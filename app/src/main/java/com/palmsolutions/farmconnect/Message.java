@@ -10,16 +10,26 @@ public class Message {
     private String Sender_ID;
     private String Reciever_ID;
     private String Content;
-    private Object timeStamp;
+    private String chat_id;
+    private Long  timeStamp;
     public Message(){
 
     }
-    public Message(String message_ID, String sender_ID, String reciever_ID, String content) {
+    public Message(String message_ID, String sender_ID, String reciever_ID, String content, String chat_id) {
         Message_ID = message_ID;
         Sender_ID = sender_ID;
         Reciever_ID = reciever_ID;
+        this.chat_id = chat_id;
         Content = content;
-        this.timeStamp = ServerValue.TIMESTAMP;
+        this.timeStamp = new Date().getTime();
+    }
+
+    public String getChat_id() {
+        return chat_id;
+    }
+
+    public void setChat_id(String chat_id) {
+        this.chat_id = chat_id;
     }
 
     public String getMessage_ID() {
@@ -54,11 +64,11 @@ public class Message {
         Content = content;
     }
 
-    public Object getTimeStamp() {
+    public Long getTimeStamp() {
         return timeStamp;
     }
 
-    public void setTimeStamp(Date timeStamp) {
+    public void setTimeStamp(Long timeStamp) {
         this.timeStamp = timeStamp;
     }
 }

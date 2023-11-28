@@ -10,17 +10,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="10sp"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout26"
-        tools:layout_editor_absoluteX="0dp">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:id="@+id/farmer_chat_all_chat_label"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
             android:fontFamily="@font/sfbold"
-            android:paddingTop="10sp"
-            android:paddingBottom="10sp"
             android:text="All Chats"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -95,12 +93,25 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout27"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:padding="10sp"
+        app:layout_constraintBottom_toTopOf="@+id/farmer_home_navbar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout28">
+
+        <TextView
+            android:id="@+id/farmer_chat_layout_no_chat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/sfbold"
+            android:text="No Chats Happended"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@+id/farmer_chat_layout_recycler_view"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/farmer_chat_layout_recycler_view" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/farmer_chat_layout_recycler_view"
@@ -108,25 +119,10 @@
             android:layout_height="match_parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.473"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.473" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout26"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="10sp">
-
-        <TextView
-            android:id="@+id/textView9"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/sfregular"
-            android:text="Chat"
-            android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

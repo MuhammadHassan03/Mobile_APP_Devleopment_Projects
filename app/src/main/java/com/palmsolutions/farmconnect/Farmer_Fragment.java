@@ -1,12 +1,14 @@
 package com.palmsolutions.farmconnect;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -17,7 +19,11 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class Farmer_Fragment extends Fragment {
+public class Farmer_Fragment extends Fragment implements Farmer_Home_Category_Recycler_View.CategorySelectionListener{
+    ProgressBar progress_bar_home;
+    public Farmer_Fragment(ProgressBar progress_bar_home){
+        this.progress_bar_home = progress_bar_home;
+    }
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -28,11 +34,11 @@ public class Farmer_Fragment extends Fragment {
 
         RecyclerView farmer_home_categories_recycler_view = view.findViewById(R.id.farmer_home_categories_recycler_view);
         farmer_home_categories_recycler_view.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL, false));
-        farmer_home_categories_recycler_view.setAdapter(new Farmer_Home_Category_Recycler_View(getContext()));
+        farmer_home_categories_recycler_view.setAdapter(new Farmer_Home_Category_Recycler_View(getContext(), this));
 
         RecyclerView farmer_home_all_products_recycler_view = view.findViewById(R.id.farmer_home_all_products_recycler_view);
         farmer_home_all_products_recycler_view.setLayoutManager(new GridLayoutManager(getContext(), 2));
-        farmer_home_all_products_recycler_view.setAdapter(new Farmer_Home_Products_Recycler_View(getContext(), manager));
+        farmer_home_all_products_recycler_view.setAdapter(new Farmer_Home_Products_Recycler_View(getContext(), manager, progress_bar_home));
 
         ImageButton farmer_home_categories_filter = view.findViewById(R.id.farmer_home_categories_filter);
         farmer_home_categories_filter.setOnClickListener(new View.OnClickListener() {
@@ -64,11 +70,7 @@ public class Farmer_Fragment extends Fragment {
         farmer_navbar_chat_btn_fragment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FragmentTransaction transaction = manager.beginTransaction();
-                Chat_Layout chat_layout = new Chat_Layout();
-                transaction.replace(R.id.Fragment_Home, chat_layout);
-                transaction.addToBackStack(null);
-                transaction.commit();
+                startActivity(new Intent(getContext(), Chat.class));
             }
         });
 
@@ -85,5 +87,10 @@ public class Farmer_Fragment extends Fragment {
 
 
         return view;
+    }
+
+    @Override
+    public void onCategorySelected(String category) {
+
     }
 }

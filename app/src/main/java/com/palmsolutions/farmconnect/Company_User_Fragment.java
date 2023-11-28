@@ -116,6 +116,7 @@ public class Company_User_Fragment extends Fragment {
             @Override
             public void onClick(View view) {
                 FirebaseAuth.getInstance().signOut();
+                getActivity().finish();
                 startActivity(new Intent(getContext(), Authentication.class));
             }
         });

@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,9 +37,11 @@ public class Farmer_Home_Products_Recycler_View extends RecyclerView.Adapter<Far
     private DatabaseReference database;
     private ArrayList<CompanyProduct> products;
     private FragmentManager manager;
-    public Farmer_Home_Products_Recycler_View(Context context, FragmentManager manager){
+    private ProgressBar progress_bar_home;
+    public Farmer_Home_Products_Recycler_View(Context context, FragmentManager manager, ProgressBar progress_bar_home){
         this.manager = manager;
         this.context = context;
+        this.progress_bar_home = progress_bar_home;
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
         database = FirebaseDatabase.getInstance().getReference();
@@ -96,6 +99,58 @@ public class Farmer_Home_Products_Recycler_View extends RecyclerView.Adapter<Far
         }
     }
 
+    public void grains_filter(Boolean isApplied) {
+        ArrayList<CompanyProduct> filteredProducts = new ArrayList<>();
+        if (isApplied) {
+            for (CompanyProduct product : products) {
+                if ("Grains".equals(product.getProduct_type())) {
+                    filteredProducts.add(product);
+                }
+            }
+        } else {
+            filteredProducts.addAll(products);
+        }
+
+        // Update the dataset with filtered products
+        products.clear();
+        products.addAll(filteredProducts);
+        notifyDataSetChanged();
+    }
+
+    public void fertilizer_filter(Boolean isApplied) {
+        ArrayList<CompanyProduct> filteredProducts = new ArrayList<>();
+        if (isApplied) {
+            for (CompanyProduct product : products) {
+                if ("Fertilizer".equals(product.getProduct_type())) {
+                    filteredProducts.add(product);
+                }
+            }
+        } else {
+            filteredProducts.addAll(products);
+        }
+
+        products.clear();
+        products.addAll(filteredProducts);
+        notifyDataSetChanged();
+    }
+
+    public void equipment_filter(Boolean isApplied) {
+        ArrayList<CompanyProduct> filteredProducts = new ArrayList<>();
+        if (isApplied) {
+            for (CompanyProduct product : products) {
+                if ("Equipment".equals(product.getProduct_type())) {
+                    filteredProducts.add(product);
+                }
+            }
+        } else {
+            filteredProducts.addAll(products);
+        }
+
+        products.clear();
+        products.addAll(filteredProducts);
+        notifyDataSetChanged();
+    }
+
     private void fetch_all_data_from_firebase(){
         try{
             ValueEventListener fetch_data = new ValueEventListener() {
@@ -110,6 +165,7 @@ public class Farmer_Home_Products_Recycler_View extends RecyclerView.Adapter<Far
                             }
                         }
                     }
+                    progress_bar_home.setVisibility(View.GONE);
                     notifyDataSetChanged();
                 }
 

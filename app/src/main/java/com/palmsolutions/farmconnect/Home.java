@@ -106,16 +106,14 @@ public class Home extends AppCompatActivity {
             FragmentTransaction transaction = fragmentManager.beginTransaction();
             Company_Fragment companyFragment = new Company_Fragment(this);
             transaction.add(R.id.Fragment_Home, companyFragment);
-            transaction.addToBackStack(null);
             transaction.commit();
         }
         else if("Farmer".equals(account_type)){
-//            progress_bar_home.setVisibility(View.VISIBLE);
+            progress_bar_home.setVisibility(View.VISIBLE);
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction transaction = fragmentManager.beginTransaction();
-            Farmer_Fragment farmerFragment = new Farmer_Fragment();
+            Farmer_Fragment farmerFragment = new Farmer_Fragment(progress_bar_home);
             transaction.add(R.id.Fragment_Home, farmerFragment);
-            transaction.addToBackStack(null);
             transaction.commit();
         }
         else{
